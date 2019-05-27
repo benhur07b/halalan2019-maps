@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <title>Halalan 2019 - Party Lists per Province and NCR Cities</title>
+
+    <link rel="shortcut icon" href="static/data/BNHR-favicon.png">
+
+    <meta property="og:description" content="Maps of Party Lists per Province and NCR Cities">
+    <meta property="og:image" content="static/data/main.png"/>
+
+    <meta name="twitter:description" content="Maps of Party Lists per Province and NCR Cities">
+    <meta name="twitter:image" content="static/data/main.png"/>
+
+    <!-- CSS -->
+    <!-- <link rel='stylesheet' type='text/less' href='static/css/main.less' /> -->
+
+    <!-- Less -->
+    <!-- <script src='//cdnjs.cloudflare.com/ajax/libs/less.js/3.0.0/less.min.js' ></script> -->
+
+    <!-- Mapbox -->
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css' rel='stylesheet' />
+    <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
+
+    <!-- Normalize -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css'>
+
+    <!-- Font Awesome -->
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous'>
+
+    <!-- Bootstrap CSS -->
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+
+    <!-- jQuery -->
+    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+
+    <!-- Popper.js -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
+
+    <!-- Bootstrap JS -->
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
+
+    <!-- Chart JS -->
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js'></script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js'></script> -->
+
+    <style>
+        body { margin:0; padding:0; }
+
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+
+        .filter-ctrl {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+            width: 240px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id='map'></div>
+    <div class='filter-ctrl'>
+        <h6 style='color: #eeeeee'>Select Candidate</h6>
+        <select id='candidate' style='width: 240px'>
+            <option value='1 UTAP BICOL'>1 UTAP BICOL</option>
+            <option value='1-AHAPO'>1-AHAPO</option>
+            <option value='1-ANG EDUKASYON'>1-ANG EDUKASYON</option>
+            <option value='1-APTO'>1-APTO</option>
+            <option value='1-CARE'>1-CARE</option>
+            <option value='1-LAMBAT'>1-LAMBAT</option>
+            <option value='1-UTAK'>1-UTAK</option>
+            <option value='1AAAP'>1AAAP</option>
+            <option value='1P'>1P</option>
+            <option value='1PACMAN'>1PACMAN</option>
+            <option value='A TEACHER'>A TEACHER</option>
+            <option value='AA-KASOSYO PARTY'>AA-KASOSYO PARTY</option>
+            <option value='AAMBIS-OWA'>AAMBIS-OWA</option>
+            <option value='AANGAT TAYO'>AANGAT TAYO</option>
+            <option value='AASENSO'>AASENSO</option>
+            <option value='ABAKADA'>ABAKADA</option>
+            <option value='ABAMIN'>ABAMIN</option>
+            <option value='ABANG LINGKOD'>ABANG LINGKOD</option>
+            <option value='ABANTE PILIPINAS'>ABANTE PILIPINAS</option>
+            <option value='ABEKA'>ABEKA</option>
+            <option value='ABONO'>ABONO</option>
+            <option value='ABS'>ABS</option>
+            <option value='ACT TEACHERS'>ACT TEACHERS</option>
+            <option value='ACT-CIS'>ACT-CIS</option>
+            <option value='ACTS-OFW'>ACTS-OFW</option>
+            <option value='AGAP'>AGAP</option>
+            <option value='AGBIAG!'>AGBIAG!</option>
+            <option value='AGRI'>AGRI</option>
+            <option value='AKBAYAN'>AKBAYAN</option>
+            <option value='AKMA-PTM'>AKMA-PTM</option>
+            <option value='AKO'>AKO</option>
+            <option value='AKO AN BISAYA'>AKO AN BISAYA</option>
+            <option value='AKO BICOL'>AKO BICOL</option>
+            <option value='AKO BISAYA'>AKO BISAYA</option>
+            <option value='AKO BISDAK'>AKO BISDAK</option>
+            <option value='AKO PADAYON'>AKO PADAYON</option>
+            <option value='ALAY BUHAY'>ALAY BUHAY</option>
+            <option value='ALENG ENTREP'>ALENG ENTREP</option>
+            <option value='ALIF'>ALIF</option>
+            <option value='ALL-FISH'>ALL-FISH</option>
+            <option value='ALONA'>ALONA</option>
+            <option value='AMEPA OFW'>AMEPA OFW</option>
+            <option value='AMIN'>AMIN</option>
+            <option value='AN WARAY'>AN WARAY</option>
+            <option value='ANAC-IP'>ANAC-IP</option>
+            <option value='ANAKALUSUGAN'>ANAKALUSUGAN</option>
+            <option value='ANAKPAWIS'>ANAKPAWIS</option>
+            <option value='ANG KABUHAYAN'>ANG KABUHAYAN</option>
+            <option value='ANG NARS'>ANG NARS</option>
+            <option value='ANG PROBINSYANO'>ANG PROBINSYANO</option>
+            <option value='ANGKLA'>ANGKLA</option>
+            <option value='ANUPA'>ANUPA</option>
+            <option value='APEC'>APEC</option>
+            <option value='APPEND'>APPEND</option>
+            <option value='ASEAN'>ASEAN</option>
+            <option value='ATING KOOP'>ATING KOOP</option>
+            <option value='AVE'>AVE</option>
+            <option value='AWAKE'>AWAKE</option>
+            <option value='BAHAY'>BAHAY</option>
+            <option value='BANAT'>BANAT</option>
+            <option value='BAYAN MUNA'>BAYAN MUNA</option>
+            <option value='BH (BAGONG HENERASYON)'>BH (BAGONG HENERASYON)</option>
+            <option value='BHW'>BHW</option>
+            <option value='BUHAY'>BUHAY</option>
+            <option value='BUKLOD FILIPINO'>BUKLOD FILIPINO</option>
+            <option value='BUTIL'>BUTIL</option>
+            <option value='CIBAC'>CIBAC</option>
+            <option value='CONSLA'>CONSLA</option>
+            <option value='COOP-NATCCO'>COOP-NATCCO</option>
+            <option value='CWS'>CWS</option>
+            <option value='DIWA'>DIWA</option>
+            <option value='DUMPER PTDA'>DUMPER PTDA</option>
+            <option value='DUTERTE YOUTH'>DUTERTE YOUTH</option>
+            <option value='FFP'>FFP</option>
+            <option value='FICTAP'>FICTAP</option>
+            <option value='GABRIELA'>GABRIELA</option>
+            <option value='GLOBAL'>GLOBAL</option>
+            <option value='GP'>GP</option>
+            <option value='GRECON'>GRECON</option>
+            <option value='INANG MAHAL'>INANG MAHAL</option>
+            <option value='ITO ANG TAMA'>ITO ANG TAMA</option>
+            <option value='JUAN MOVEMENT'>JUAN MOVEMENT</option>
+            <option value='KABALIKAT'>KABALIKAT</option>
+            <option value='KABATAAN'>KABATAAN</option>
+            <option value='KABAYAN'>KABAYAN</option>
+            <option value='KALINGA'>KALINGA</option>
+            <option value='KAMAIS'>KAMAIS</option>
+            <option value='KMM'>KMM</option>
+            <option value='KONTRA BROWNOUT PARTYLIST'>KONTRA BROWNOUT PARTYLIST</option>
+            <option value='KOOP-KAMPI'>KOOP-KAMPI</option>
+            <option value='KUSUG TAUSUG'>KUSUG TAUSUG</option>
+            <option value='LAANG KAWAL'>LAANG KAWAL</option>
+            <option value='LPGMA'>LPGMA</option>
+            <option value='LUNTIAN'>LUNTIAN</option>
+            <option value='MAGDALO'>MAGDALO</option>
+            <option value='MAGSASAKA'>MAGSASAKA</option>
+            <option value='MANILA TEACHERS''>MANILA TEACHERS'</option>
+            <option value='MARINO'>MARINO</option>
+            <option value='MARVELOUS TAYO'>MARVELOUS TAYO</option>
+            <option value='MATA'>MATA</option>
+            <option value='MAYPAGASA'>MAYPAGASA</option>
+            <option value='METRO'>METRO</option>
+            <option value='MURANG KURYENTE'>MURANG KURYENTE</option>
+            <option value='OFW FAMILY'>OFW FAMILY</option>
+            <option value='PARTIDO SANDUGO'>PARTIDO SANDUGO</option>
+            <option value='PATROL'>PATROL</option>
+            <option value='PBA'>PBA</option>
+            <option value='PBB'>PBB</option>
+            <option value='PEACE'>PEACE</option>
+            <option value='PEOPLE'S CHAMP'>PEOPLE'S CHAMP</option>
+            <option value='PHILRECA'>PHILRECA</option>
+            <option value='PLM'>PLM</option>
+            <option value='PM'>PM</option>
+            <option value='PPP'>PPP</option>
+            <option value='PRAI'>PRAI</option>
+            <option value='PROBINSYANO AKO'>PROBINSYANO AKO</option>
+            <option value='PTA'>PTA</option>
+            <option value='RAM'>RAM</option>
+            <option value='RECOBODA'>RECOBODA</option>
+            <option value='SAGIP'>SAGIP</option>
+            <option value='SAMAKO'>SAMAKO</option>
+            <option value='SBP'>SBP</option>
+            <option value='SENIOR CITIZENS'>SENIOR CITIZENS</option>
+            <option value='SINAG'>SINAG</option>
+            <option value='SULONG DIGNIDAD'>SULONG DIGNIDAD</option>
+            <option value='TAO MUNA'>TAO MUNA</option>
+            <option value='TGP'>TGP</option>
+            <option value='TINDERONG PINOY'>TINDERONG PINOY</option>
+            <option value='TINGOG SINIRANGAN'>TINGOG SINIRANGAN</option>
+            <option value='TRICAP'>TRICAP</option>
+            <option value='TUCP'>TUCP</option>
+            <option value='UNIDO'>UNIDO</option>
+            <option value='WOW PILIPINAS'>WOW PILIPINAS</option>
+            <option value='YACAP'>YACAP</option>
+        </select>
+        <select id='data' style='width: 240px'>
+            <option value='PERCENTAGE'>% of Votes in Province/District</option>
+            <option value='PERCENT TOTAL VOTES'>% of Total Votes</option>
+            <option value='VOTES'>Votes in Province/District</option>
+        </select>
+        <div style='padding: 16px 0px'>
+            <img class='img-fluid' src='static/data/halalan2019-colorramp.png'>
+        </div>
+    </div>
+    <script src='static/js/party-lists.js'></script>
+</body>
+</html>

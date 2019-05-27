@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <title>Halalan 2019 - Compare Senatorial Candidates Per Province and NCR Cities</title>
+
+    <link rel="shortcut icon" href="static/data/BNHR-favicon.png">
+
+    <meta property="og:description" content="Compare Senatorial Candidates per Province and NCR Cities">
+    <meta property="og:image" content="static/data/main.png"/>
+
+    <meta name="twitter:description" content="Compare Senatorial Candidates per Province and NCR Cities">
+    <meta name="twitter:image" content="static/data/main.png"/>
+
+    <!-- CSS -->
+    <!-- <link rel='stylesheet' type='text/less' href='static/css/main.less' /> -->
+
+    <!-- Less -->
+    <!-- <script src='//cdnjs.cloudflare.com/ajax/libs/less.js/3.0.0/less.min.js' ></script> -->
+
+    <!-- Mapbox -->
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css' rel='stylesheet' />
+    <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
+
+    <!-- Normalize -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css'>
+
+    <!-- Font Awesome -->
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous'>
+
+    <!-- Bootstrap CSS -->
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+
+    <!-- jQuery -->
+    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+
+    <!-- Popper.js -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
+
+    <!-- Bootstrap JS -->
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
+
+    <!-- Chart JS -->
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js'></script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js'></script> -->
+
+    <style>
+        body { margin:0; padding:0; }
+
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+
+        .filter-ctrl {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+            width: 240px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='map'></div>
+    <div class='filter-ctrl'>
+        <h6 style='color: #eeeeee'>Select Candidate 1</h6>
+        <select id='candidate1' style='width: 240px'>
+            <option value='ABEJO, VANGIE (IND)'>ABEJO, VANGIE (IND)</option>
+            <option value='AFUANG, ABNER (WPP)'>AFUANG, ABNER (WPP)</option>
+            <option value='AGUILAR, FREDDIE (IND)'>AGUILAR, FREDDIE (IND)</option>
+            <option value='ALBANI, SHARIFF (WPP)'>ALBANI, SHARIFF (WPP)</option>
+            <option value='ALEJANO, GARY (LP)'>ALEJANO, GARY (LP)</option>
+            <option value='ALFAJORA, RICHARD (IND)'>ALFAJORA, RICHARD (IND)</option>
+            <option value='ALUNAN, RAFFY (BGMBYN)'>ALUNAN, RAFFY (BGMBYN)</option>
+            <option value='ANGARA, EDGARDO SONNY (LDP)'>ANGARA, EDGARDO SONNY (LDP)</option>
+            <option value='AQUINO, BENIGNO BAM (LP)'>AQUINO, BENIGNO BAM (LP)</option>
+            <option value='ARCEGA, GERALD (WPP)'>ARCEGA, GERALD (WPP)</option>
+            <option value='ARELLANO, ERNESTO (IND)'>ARELLANO, ERNESTO (IND)</option>
+            <option value='ARIAS, MARCELINO (WPP)'>ARIAS, MARCELINO (WPP)</option>
+            <option value='AUSTRIA, BERNARD (PDSP)'>AUSTRIA, BERNARD (PDSP)</option>
+            <option value='BALDEVARONA, BALDE (FFP)'>BALDEVARONA, BALDE (FFP)</option>
+            <option value='BINAY, NANCY (UNA)'>BINAY, NANCY (UNA)</option>
+            <option value='BONG REVILLA, RAMON JR (LAKAS)'>BONG REVILLA, RAMON JR (LAKAS)</option>
+            <option value='CACERES, JESUS (IND)'>CACERES, JESUS (IND)</option>
+            <option value='CASIÑO, TOTI (KDP)'>CASIÑO, TOTI (KDP)</option>
+            <option value='CAYETANO, PIA (NP)'>CAYETANO, PIA (NP)</option>
+            <option value='CHAVEZ, MELCHOR (WPP)'>CHAVEZ, MELCHOR (WPP)</option>
+            <option value='CHONG, GLENN (KDP)'>CHONG, GLENN (KDP)</option>
+            <option value='COLMENARES, NERI (MKBYN)'>COLMENARES, NERI (MKBYN)</option>
+            <option value='DE GUZMAN, KA LEODY (PLM)'>DE GUZMAN, KA LEODY (PLM)</option>
+            <option value='DELA ROSA, BATO (PDPLBN)'>DELA ROSA, BATO (PDPLBN)</option>
+            <option value='DIOKNO, CHEL (LP)' selected='selected'>DIOKNO, CHEL (LP)</option>
+            <option value='EJERCITO, ESTRADA JV (NPC)'>EJERCITO, ESTRADA JV (NPC)</option>
+            <option value='ENRILE, JUAN PONCE (PMP)'>ENRILE, JUAN PONCE (PMP)</option>
+            <option value='ESCUDERO, AGNES (IND)'>ESCUDERO, AGNES (IND)</option>
+            <option value='ESTRADA, JINGGOY (PMP)'>ESTRADA, JINGGOY (PMP)</option>
+            <option value='FRANCISCO, ELMER (PFP)'>FRANCISCO, ELMER (PFP)</option>
+            <option value='GADDI, CHARLIE (IND)'>GADDI, CHARLIE (IND)</option>
+            <option value='GADON, LARRY (KBL)'>GADON, LARRY (KBL)</option>
+            <option value='GENEROSO,GEN PEDERALISMO (IND)'>GENEROSO,GEN PEDERALISMO (IND)</option>
+            <option value='GO, BONG GO (PDPLBN)'>GO, BONG GO (PDPLBN)</option>
+            <option value='GUIGAYUMA, JUNBERT (WPP)'>GUIGAYUMA, JUNBERT (WPP)</option>
+            <option value='GUTOC, SAMIRA (LP)'>GUTOC, SAMIRA (LP)</option>
+            <option value='HILBAY, PILO (AKSYON)'>HILBAY, PILO (AKSYON)</option>
+            <option value='JANGAO, BFG ABRAHAM (IND)'>JANGAO, BFG ABRAHAM (IND)</option>
+            <option value='JAVELLANA, RJ (KDP)'>JAVELLANA, RJ (KDP)</option>
+            <option value='LAPID, LITO (NPC)'>LAPID, LITO (NPC)</option>
+            <option value='MACALINTAL, MACAROMY (IND)'>MACALINTAL, MACAROMY (IND)</option>
+            <option value='MALLILLIN, EMILY (IND)'>MALLILLIN, EMILY (IND)</option>
+            <option value='MANGONDATO, FAISAL (IND)'>MANGONDATO, FAISAL (IND)</option>
+            <option value='MANGUDADATU, DONG (PDPLBN)'>MANGUDADATU, DONG (PDPLBN)</option>
+            <option value='MANICAD, JIGGY (IND)'>MANICAD, JIGGY (IND)</option>
+            <option value='MARCOS, IMEE (NP)'>MARCOS, IMEE (NP)</option>
+            <option value='MATULA, JOSE SONNY (WPP)'>MATULA, JOSE SONNY (WPP)</option>
+            <option value='MENIANO, LUTHER (WPP)'>MENIANO, LUTHER (WPP)</option>
+            <option value='MONTAÑO, ALLAN (IND)'>MONTAÑO, ALLAN (IND)</option>
+            <option value='NALLIW, JOAN SHEELAH (IND)'>NALLIW, JOAN SHEELAH (IND)</option>
+            <option value='ONG, DOC WILLIE (LAKAS)'>ONG, DOC WILLIE (LAKAS)</option>
+            <option value='OSMEÑA, SERGE (IND)'>OSMEÑA, SERGE (IND)</option>
+            <option value='PADILLA, DADO (PFP)'>PADILLA, DADO (PFP)</option>
+            <option value='PIMENTEL, KOKO (PDPLBN)'>PIMENTEL, KOKO (PDPLBN)</option>
+            <option value='POE, GRACE (IND)'>POE, GRACE (IND)</option>
+            <option value='ROLEDA, DAN KAIBIGAN (UNA)'>ROLEDA, DAN KAIBIGAN (UNA)</option>
+            <option value='ROXAS, MAR (LP)'>ROXAS, MAR (LP)</option>
+            <option value='SAHIDULLA, LADY ANN (KDP)'>SAHIDULLA, LADY ANN (KDP)</option>
+            <option value='TAÑADA,LORENZO ERIN TAPAT (LP)'>TAÑADA,LORENZO ERIN TAPAT (LP)</option>
+            <option value='TOLENTINO, FRANCIS (PDPLBN)'>TOLENTINO, FRANCIS (PDPLBN)</option>
+            <option value='VALDES, BUTCH (KDP)'>VALDES, BUTCH (KDP)</option>
+            <option value='VILLAR, CYNTHIA (NP)'>VILLAR, CYNTHIA (NP)</option>
+        </select>
+        <h6 style='color: #eeeeee; padding-top: 1em;'>Select Candidate 2</h6>
+        <select id='candidate2' style='width: 240px'>
+            <option value='ABEJO, VANGIE (IND)'>ABEJO, VANGIE (IND)</option>
+            <option value='AFUANG, ABNER (WPP)'>AFUANG, ABNER (WPP)</option>
+            <option value='AGUILAR, FREDDIE (IND)'>AGUILAR, FREDDIE (IND)</option>
+            <option value='ALBANI, SHARIFF (WPP)'>ALBANI, SHARIFF (WPP)</option>
+            <option value='ALEJANO, GARY (LP)'>ALEJANO, GARY (LP)</option>
+            <option value='ALFAJORA, RICHARD (IND)'>ALFAJORA, RICHARD (IND)</option>
+            <option value='ALUNAN, RAFFY (BGMBYN)'>ALUNAN, RAFFY (BGMBYN)</option>
+            <option value='ANGARA, EDGARDO SONNY (LDP)'>ANGARA, EDGARDO SONNY (LDP)</option>
+            <option value='AQUINO, BENIGNO BAM (LP)'>AQUINO, BENIGNO BAM (LP)</option>
+            <option value='ARCEGA, GERALD (WPP)'>ARCEGA, GERALD (WPP)</option>
+            <option value='ARELLANO, ERNESTO (IND)'>ARELLANO, ERNESTO (IND)</option>
+            <option value='ARIAS, MARCELINO (WPP)'>ARIAS, MARCELINO (WPP)</option>
+            <option value='AUSTRIA, BERNARD (PDSP)'>AUSTRIA, BERNARD (PDSP)</option>
+            <option value='BALDEVARONA, BALDE (FFP)'>BALDEVARONA, BALDE (FFP)</option>
+            <option value='BINAY, NANCY (UNA)'>BINAY, NANCY (UNA)</option>
+            <option value='BONG REVILLA, RAMON JR (LAKAS)'>BONG REVILLA, RAMON JR (LAKAS)</option>
+            <option value='CACERES, JESUS (IND)'>CACERES, JESUS (IND)</option>
+            <option value='CASIÑO, TOTI (KDP)'>CASIÑO, TOTI (KDP)</option>
+            <option value='CAYETANO, PIA (NP)'>CAYETANO, PIA (NP)</option>
+            <option value='CHAVEZ, MELCHOR (WPP)'>CHAVEZ, MELCHOR (WPP)</option>
+            <option value='CHONG, GLENN (KDP)'>CHONG, GLENN (KDP)</option>
+            <option value='COLMENARES, NERI (MKBYN)'>COLMENARES, NERI (MKBYN)</option>
+            <option value='DE GUZMAN, KA LEODY (PLM)'>DE GUZMAN, KA LEODY (PLM)</option>
+            <option value='DELA ROSA, BATO (PDPLBN)' selected='selected'>DELA ROSA, BATO (PDPLBN)</option>
+            <option value='DIOKNO, CHEL (LP)'>DIOKNO, CHEL (LP)</option>
+            <option value='EJERCITO, ESTRADA JV (NPC)'>EJERCITO, ESTRADA JV (NPC)</option>
+            <option value='ENRILE, JUAN PONCE (PMP)'>ENRILE, JUAN PONCE (PMP)</option>
+            <option value='ESCUDERO, AGNES (IND)'>ESCUDERO, AGNES (IND)</option>
+            <option value='ESTRADA, JINGGOY (PMP)'>ESTRADA, JINGGOY (PMP)</option>
+            <option value='FRANCISCO, ELMER (PFP)'>FRANCISCO, ELMER (PFP)</option>
+            <option value='GADDI, CHARLIE (IND)'>GADDI, CHARLIE (IND)</option>
+            <option value='GADON, LARRY (KBL)'>GADON, LARRY (KBL)</option>
+            <option value='GENEROSO,GEN PEDERALISMO (IND)'>GENEROSO,GEN PEDERALISMO (IND)</option>
+            <option value='GO, BONG GO (PDPLBN)'>GO, BONG GO (PDPLBN)</option>
+            <option value='GUIGAYUMA, JUNBERT (WPP)'>GUIGAYUMA, JUNBERT (WPP)</option>
+            <option value='GUTOC, SAMIRA (LP)'>GUTOC, SAMIRA (LP)</option>
+            <option value='HILBAY, PILO (AKSYON)'>HILBAY, PILO (AKSYON)</option>
+            <option value='JANGAO, BFG ABRAHAM (IND)'>JANGAO, BFG ABRAHAM (IND)</option>
+            <option value='JAVELLANA, RJ (KDP)'>JAVELLANA, RJ (KDP)</option>
+            <option value='LAPID, LITO (NPC)'>LAPID, LITO (NPC)</option>
+            <option value='MACALINTAL, MACAROMY (IND)'>MACALINTAL, MACAROMY (IND)</option>
+            <option value='MALLILLIN, EMILY (IND)'>MALLILLIN, EMILY (IND)</option>
+            <option value='MANGONDATO, FAISAL (IND)'>MANGONDATO, FAISAL (IND)</option>
+            <option value='MANGUDADATU, DONG (PDPLBN)'>MANGUDADATU, DONG (PDPLBN)</option>
+            <option value='MANICAD, JIGGY (IND)'>MANICAD, JIGGY (IND)</option>
+            <option value='MARCOS, IMEE (NP)'>MARCOS, IMEE (NP)</option>
+            <option value='MATULA, JOSE SONNY (WPP)'>MATULA, JOSE SONNY (WPP)</option>
+            <option value='MENIANO, LUTHER (WPP)'>MENIANO, LUTHER (WPP)</option>
+            <option value='MONTAÑO, ALLAN (IND)'>MONTAÑO, ALLAN (IND)</option>
+            <option value='NALLIW, JOAN SHEELAH (IND)'>NALLIW, JOAN SHEELAH (IND)</option>
+            <option value='ONG, DOC WILLIE (LAKAS)'>ONG, DOC WILLIE (LAKAS)</option>
+            <option value='OSMEÑA, SERGE (IND)'>OSMEÑA, SERGE (IND)</option>
+            <option value='PADILLA, DADO (PFP)'>PADILLA, DADO (PFP)</option>
+            <option value='PIMENTEL, KOKO (PDPLBN)'>PIMENTEL, KOKO (PDPLBN)</option>
+            <option value='POE, GRACE (IND)'>POE, GRACE (IND)</option>
+            <option value='ROLEDA, DAN KAIBIGAN (UNA)'>ROLEDA, DAN KAIBIGAN (UNA)</option>
+            <option value='ROXAS, MAR (LP)'>ROXAS, MAR (LP)</option>
+            <option value='SAHIDULLA, LADY ANN (KDP)'>SAHIDULLA, LADY ANN (KDP)</option>
+            <option value='TAÑADA,LORENZO ERIN TAPAT (LP)'>TAÑADA,LORENZO ERIN TAPAT (LP)</option>
+            <option value='TOLENTINO, FRANCIS (PDPLBN)'>TOLENTINO, FRANCIS (PDPLBN)</option>
+            <option value='VALDES, BUTCH (KDP)'>VALDES, BUTCH (KDP)</option>
+            <option value='VILLAR, CYNTHIA (NP)'>VILLAR, CYNTHIA (NP)</option>
+        </select>
+        <!-- <select id='data' style='width: 240px'>
+            <option value='PERCENTAGE'>% of Votes in Province/District</option>
+            <option value='PERCENT TOTAL VOTES'>% of Total Votes</option>
+            <option value='VOTES'>Votes in Province/District</option>
+        </select> -->
+        <!-- <div style='padding: 16px 0px'>
+            <img class='img-fluid' src='static/data/halalan2019-colorramp.png'>
+        </div> -->
+        <div style='padding: 16px 0px'>
+            <img class='img-fluid' src='static/data/halalan2019-bivariate-colorramp.png'>
+        </div>
+    </div>
+    <script src='static/js/senators-compare.js'></script>
+</body>
+</html>
